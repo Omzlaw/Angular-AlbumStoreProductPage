@@ -1,20 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 
+// import { Album } from '../album';
+import { AlbumInfo } from '../albuminfo';
+
 @Component({
   selector: 'app-product-description',
   templateUrl: './product-description.component.html',
-  styleUrls: ['./product-description.component.scss']
+  styleUrls: ['./product-description.component.css']
 })
 export class ProductDescriptionComponent implements OnInit {
 
-  albumInfo: any;
+  albumInfo?: AlbumInfo;
   constructor(private _productService: ProductService) {
 
   }
 
   ngOnInit(): void {
-    this._productService.getAlbum(1).subscribe(response => this.albumInfo = response)
+    this._productService.getAlbum(1).subscribe(
+      {
+        next: (response => this.albumInfo = response)
+      }
+    )
   }
 
 }
